@@ -98,8 +98,13 @@ Item {
         y: 501
         width: 198
         height: 53
-        text: Js.func()
+        text: "asd"
         font.pixelSize: 19
+        Component.onCompleted: Js.ajax({
+                                        url: app.g_baseUrl+"/publications",
+                                        success: function(data){console.log(JSON.parse(data).publications[0].title)}
+                                       });
+
     }
 
 

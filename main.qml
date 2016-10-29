@@ -15,9 +15,10 @@ ApplicationWindow {
 
 
 
-    Login {
-        id: login1
+    Publications {
+        id: pub
         anchors.fill: parent
     }
+
 
 }
