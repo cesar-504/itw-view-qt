@@ -4,7 +4,8 @@ QT += qml quick network quickcontrols2
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    jsonrequest.cpp
+    jsonrequest.cpp \
+    qajax.cpp
 
 RESOURCES += qml.qrc
 
@@ -19,4 +20,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    jsonrequest.h
+    jsonrequest.h \
+    qajax.h
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/lib/qjson/release/ -lqjson-qt5
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/qjson/debug/ -lqjson-qt5
+else:unix: LIBS += -L$$PWD/lib/qjson/ -lqjson-qt5
+
+INCLUDEPATH += $$PWD/lib/qjson
+DEPENDPATH += $$PWD/lib/qjson

@@ -5,5 +5,6 @@
         <file>Publications.qml</file>
         <file>app.js</file>
         <file>asd.js</file>
+        <file>AppView.qml</file>
     </qresource>
 </RCC>

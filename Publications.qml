@@ -1,16 +1,25 @@
 import QtQuick 2.0
 import "app.js" as Js
+import my.qajax 0.5
+
 Item {
+    QAjax{
+        id:ajax
+        url:app.g_baseUrl+"publications"
+
+    }
+
     ListView {
         id: listView1
         anchors.fill: parent
+        model : ajax.dataMap.publications
+
+        delegate:Component{
 
 
-        delegate: Item {
-            x: 5
-            width: parent.width
-            height: 40
             Row {
+                width: parent.width
+                height: 40
                 id: row1
                 spacing: 10
 
@@ -27,13 +36,8 @@ Item {
 
             }
         }
-        Component.onCompleted: Js.ajax({
-                                        url: app.g_baseUrl+"/publications",
-                                        success: function(data){
 
-                                            listView1.model=JSON.parse(data).publications
-
-                                        }});
+        Component.onCompleted:{ ajax.ajax();}
 
     }
 
