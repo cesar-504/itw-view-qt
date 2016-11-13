@@ -1,19 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QDebug>
-#include <QVariant>
-#include "jsonrequest.h"
-#include <QElapsedTimer>
 #include <QQuickStyle>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QNetworkRequest>
-#include <QJsonObject>
-#include <QJsonDocument>
 #include <QDebug>
-#include <QUrl>
-#include <QVariant>
-#include "lib/qjson/parser.h"
 #include "qajax.h"
 
 int main(int argc, char *argv[])

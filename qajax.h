@@ -11,14 +11,15 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
-#include "lib/qjson/parser.h"
 #include <QStringList>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 class QAjax : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString data READ data  NOTIFY dataChanged)
-    Q_PROPERTY(QVariantMap dataMap READ dataMap  NOTIFY dataChanged)
+    Q_PROPERTY(QVariantMap dataMap READ dataMap WRITE setDataMap  NOTIFY dataChanged)
 
     Q_PROPERTY(QString type  READ type  WRITE setType NOTIFY requestChanged)
     Q_PROPERTY(QString url READ url WRITE setUrl NOTIFY requestChanged )
@@ -35,11 +36,12 @@ public:
     QString type ()const{return m_type ;}
     QString url()const{return m_url;}
     QVariantMap dataSent()const{return m_dataSent;}
-    QStringList urls()const{return m_urls;}
+
     //sets
     void setType (QString value);
     void setUrl(QString value);
     void setDataSent(QVariantMap value);
+    void setDataMap(QVariantMap value);
     //fns
     Q_INVOKABLE void send();
 
@@ -57,9 +59,7 @@ public slots:
     void mergeData(QString data);
 protected:
     QVariantMap jsonToMap(QString data);
-
-
-    QJson::Parser m_parser;
+    QByteArray MapToJson(QVariantMap data);
     QNetworkAccessManager * m_manager=new QNetworkAccessManager();
     QNetworkReply *m_reply;
     QString  m_data = QString();
@@ -69,7 +69,7 @@ protected:
 
     QString m_type="get";
     QString m_url="";
-    QStringList m_urls=QStringList();
+    QString m_dataType="application/json";
     QVariantMap m_dataSent=QVariantMap();
 
 

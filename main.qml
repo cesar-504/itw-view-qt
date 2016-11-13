@@ -10,7 +10,7 @@ ApplicationWindow {
     id:app
     Material.accent: Material.Green
     property string g_baseUrl: "https://itwapp-cesargb504.c9users.io/"
-
+    property string g_auth_token:""
     visible: true
     width: 400
     height: 600

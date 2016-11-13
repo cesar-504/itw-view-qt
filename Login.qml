@@ -1,7 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
-import "app.js" as Js
+import my.qajax 0.5
+
 Item {
     id: item1
     width: 400
@@ -29,7 +30,7 @@ Item {
 
 
         TextField {
-            id: textField1
+            id: txtUser
             width: 242
             height: 40
             Layout.fillWidth: true
@@ -54,7 +55,7 @@ Item {
         }
 
         TextField {
-            id: textField2
+            id: txtPass
             width: 242
             height: 40
             Layout.fillWidth: true
@@ -67,11 +68,11 @@ Item {
 
 
         Button {
-            id: button1
+            id: btnLogin
             height: 44
             text: qsTr("Iniciar")
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-
+            onClicked: authenticate(txtUser.text,txtPass.text)
 
         }
 
@@ -102,6 +103,27 @@ Item {
         font.pixelSize: 19
 
 
+    }
+
+    QAjax{
+        id:ajaxLogin
+        type: 'post'
+        url: g_baseUrl+'authenticate'
+        onSuccess: {
+            console.debug(data);
+            g_auth_token=ajaxLogin.dataMap.auth_token
+        }
+        onError: {
+            console.debug(code);
+            console.debug(data);
+
+
+        }
+    }
+
+    function authenticate(user,pass){
+        ajaxLogin.dataSent={"email":user,"password":pass};
+        ajaxLogin.send();
     }
 
 

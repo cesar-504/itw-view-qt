@@ -30,7 +30,6 @@ void QAjax::setType(QString value)
 void QAjax::setUrl(QString value)
 {
     if(m_url==value)return;
-    m_urls=QStringList();
     m_url=value;
     emit requestChanged();
 }
@@ -42,18 +41,26 @@ void QAjax::setDataSent(QVariantMap value)
     emit requestChanged();
 }
 
-
-
+void QAjax::setDataMap(QVariantMap value)
+{
+    if(m_dataMap==value)return;
+    m_dataMap=value;
+    emit dataChanged();
+}
 
 void QAjax::send()
 {
     qDebug()<<m_type<<","<<m_url;
     m_manager=new QNetworkAccessManager();
     QNetworkRequest req(m_url);
+    req.setHeader(QNetworkRequest::ContentTypeHeader,QVariant(m_dataType));
     //req.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("json"));
     if(m_type.toLower()=="get") m_reply=m_manager->get(req);
-    else if(m_type.toLower()=="post") m_reply=m_manager->post(req,"");
-    else m_reply=m_manager->sendCustomRequest(req,m_type.toUtf8());
+
+    else if(m_type.toLower()=="post") {
+        auto b = MapToJson(m_dataSent);
+        m_reply=m_manager->post(req,b);}
+        else m_reply=m_manager->sendCustomRequest(req,m_type.toUtf8());
 
     connect(m_reply, &QNetworkReply::finished,this, &QAjax::finishSlot);
     connect(m_reply,static_cast<void(QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),this,&QAjax::errorSlot);
@@ -62,12 +69,20 @@ void QAjax::send()
 
 QVariantMap QAjax::jsonToMap(QString data)
 {
-    bool ok;
-    // json is a QString containing the data to convert
-    QVariantMap m = m_parser.parse(data.toUtf8(), &ok).toMap();
+    if(data.isEmpty()) return QVariantMap();
+    QJsonParseError* error = new QJsonParseError();
+    QJsonDocument doc = QJsonDocument::fromJson(data.toUtf8(),error);
+    QVariantMap m =doc.object().toVariantMap();
     return m;
-
 }
+
+QByteArray QAjax::MapToJson(QVariantMap data)
+{
+    QJsonObject obj = QJsonObject::fromVariantMap(data);
+    QJsonDocument doc = QJsonDocument(obj);
+    return doc.toJson();
+}
+
 
 
 void QAjax::finishSlot()
