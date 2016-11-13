@@ -6,7 +6,12 @@ Item {
     QAjax{
         id:ajax
         url:app.g_baseUrl+"publications"
+        onError: errorScreen.show()
 
+    }
+    ErrorScreen{
+        id:errorScreen
+        onReloadPresed:{ ajax.send();}
     }
 
     ListView {
@@ -37,7 +42,7 @@ Item {
             }
         }
 
-        Component.onCompleted:{ ajax.ajax();}
+        Component.onCompleted:{ ajax.send();}
 
     }
 

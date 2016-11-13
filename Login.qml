@@ -100,10 +100,7 @@ Item {
         height: 53
         text: "asd"
         font.pixelSize: 19
-        Component.onCompleted: Js.ajax({
-                                        url: app.g_baseUrl+"/publications",
-                                        success: function(data){console.log(JSON.parse(data).publications[0].title)}
-                                       });
+
 
     }
 
