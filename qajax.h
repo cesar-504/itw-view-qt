@@ -24,7 +24,8 @@ class QAjax : public QObject
     Q_PROPERTY(QString type  READ type  WRITE setType NOTIFY requestChanged)
     Q_PROPERTY(QString url READ url WRITE setUrl NOTIFY requestChanged )
     Q_PROPERTY(QVariantMap dataSent READ dataSent WRITE setDataSent NOTIFY requestChanged)
-
+    Q_PROPERTY(QString errorString READ errorString NOTIFY errorChanged)
+    Q_PROPERTY(int errorCode READ errorCode NOTIFY errorChanged)
 public:
     explicit QAjax(QObject *parent = 0);
 
@@ -36,7 +37,8 @@ public:
     QString type ()const{return m_type ;}
     QString url()const{return m_url;}
     QVariantMap dataSent()const{return m_dataSent;}
-
+    QString errorString()const{return m_errorString;}
+    int errorCode()const{return m_errorCode;}
     //sets
     void setType (QString value);
     void setUrl(QString value);
@@ -52,7 +54,7 @@ signals:
 
     void dataChanged();
     void requestChanged();
-
+    void errorChanged(int code,QString data);
 public slots:
     void finishSlot();
     void errorSlot(QNetworkReply::NetworkError code);
@@ -71,8 +73,12 @@ protected:
     QString m_url="";
     QString m_dataType="application/json";
     QVariantMap m_dataSent=QVariantMap();
+    QString m_errorString="";
+    int m_errorCode=0;
+
 
 
 };
+
 
 #endif // QAJAX_H

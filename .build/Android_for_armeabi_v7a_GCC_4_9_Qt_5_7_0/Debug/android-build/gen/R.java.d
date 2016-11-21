@@ -1,0 +1,24 @@
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/gen/org/qtproject/example/appView/R.java \
+ : /home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values/libs.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/layout/splash.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-de/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-el/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-es/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-et/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-fa/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-fr/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-id/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-it/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-ja/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-ms/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-nb/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-nl/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-pl/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-pt-rBR/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-ro/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-rs/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-ru/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-zh-rCN/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/res/values-zh-rTW/strings.xml \
+/home/cesar/Documentos/Proyectos/old/c++/appView/.build/Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_0/Debug/android-build/bin/AndroidManifest.xml \

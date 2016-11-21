@@ -42,7 +42,7 @@ Item {
             text: qsTr("Recargar")
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
-            onPressed: {root.reloadPresed();hide()}
+            onClicked: {console.log("press");}
         }
     }
 

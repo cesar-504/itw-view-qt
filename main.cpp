@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-    qmlRegisterType<QAjax>("my.qajax", 0, 5, "QAjax");
+    qmlRegisterType<QAjax>("my.qajax", 0, 6, "QAjax");
 
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

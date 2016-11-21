@@ -88,10 +88,14 @@ QByteArray QAjax::MapToJson(QVariantMap data)
 void QAjax::finishSlot()
 {
     if((int)m_reply->error()!=0) return;
+    m_errorCode=0;
+    m_errorString="";
+    errorChanged(0,"");
     m_data =  m_reply->readAll();
     m_dataMapChanged=true;
     emit success(m_data);
     emit dataChanged();
+
     m_reply->deleteLater();
 }
 
@@ -99,7 +103,11 @@ void QAjax::errorSlot(QNetworkReply::NetworkError code)
 {
     qDebug()<<(int)code;
     qDebug()<<m_reply->errorString();
+    m_errorCode=(int)code;
+    m_errorString=m_reply->errorString();
+    errorChanged(m_errorCode,m_errorString);
     emit error((int)code,m_reply->errorString());
+
     m_reply->deleteLater();
 }
 

@@ -7,5 +7,6 @@
         <file>asd.js</file>
         <file>AppView.qml</file>
         <file>ErrorScreen.qml</file>
+        <file>MsgScreen.qml</file>
     </qresource>
 </RCC>

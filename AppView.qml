@@ -1,6 +1,6 @@
-import QtQuick 2.0
-import QtQuick 2.6
+import QtQuick 2.7
 import QtQuick.Controls 2.0
+import QtQuick.Controls.Material 2.0
 
 Page {
     id: page
@@ -9,18 +9,13 @@ Page {
         id: swipeView
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
-        Login{}
         Publications{}
-        Pane{
-            Text {
-                id: texto
-                text: qsTr("texto")
-            }
-        }
 
     }
 
     header: TabBar {
+        Material.accent: "#429c57"
+
         id: tabBar
         currentIndex: swipeView.currentIndex
 
