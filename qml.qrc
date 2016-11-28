@@ -8,5 +8,7 @@
         <file>AppView.qml</file>
         <file>ErrorScreen.qml</file>
         <file>MsgScreen.qml</file>
+        <file>RegistrationForm.qml</file>
+        <file>G.qml</file>
     </qresource>
 </RCC>

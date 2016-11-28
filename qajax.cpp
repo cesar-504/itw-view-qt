@@ -54,7 +54,9 @@ void QAjax::send()
     m_manager=new QNetworkAccessManager();
     QNetworkRequest req(m_url);
     req.setHeader(QNetworkRequest::ContentTypeHeader,QVariant(m_dataType));
-    //req.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("json"));
+    //req.setHeader(QNetworkRequest::ContentTypeHeader,QVariant(m_dataType));
+    if(!m_authorization.isEmpty())
+        req.setRawHeader("Authorization",m_authorization.toUtf8());
     if(m_type.toLower()=="get") m_reply=m_manager->get(req);
 
     else if(m_type.toLower()=="post") {
@@ -81,6 +83,13 @@ QByteArray QAjax::MapToJson(QVariantMap data)
     QJsonObject obj = QJsonObject::fromVariantMap(data);
     QJsonDocument doc = QJsonDocument(obj);
     return doc.toJson();
+}
+
+void QAjax::setAuthorization(const QString value)
+{
+    if(m_authorization==value)return;
+    m_authorization = value;
+    emit authorizationChanged();
 }
 
 

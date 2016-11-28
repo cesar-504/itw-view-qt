@@ -7,20 +7,22 @@ import my.qajax 0.6
 
 
 
-
 ApplicationWindow {
     id:app
     Material.accent:  "#429c57"
-    property string g_baseUrl: "https://itwapp-cesargb504.c9users.io/"
-
+    property alias g_baseUrl: settings.g_baseUrl
     property string g_title: "itw"
-    property string g_auth_token:""
+    property alias g_auth_token:settings.g_auth_token
+    property var g_currentUser
+    property alias g_stackView: stackView
     visible: true
     width: 400
     height: 600
     title: qsTr("itw app!")
     Settings{
         id:settings
+        property string g_baseUrl: "https://itwapp-cesargb504.c9users.io/"
+        property string g_auth_token:""
 
         property bool firstTime: true
     }
@@ -44,7 +46,7 @@ ApplicationWindow {
 
                     }
                     Label {
-                        text: qsTr(app.g_title)
+                        text: qsTr(stackView.currentItem.title||app.g_title)
                         font.bold: true
                         font.pointSize: 16
                         elide: Label.ElideRight
@@ -70,7 +72,8 @@ ApplicationWindow {
                                     }
                                     MenuItem {
                                         text: "Cerrar sesión"
-                                        enabled: g_auth_token!=""
+                                        enabled: g_auth_token!==""
+                                        onClicked: logOut();
                                     }
                                     MenuItem {
                                         text: "Salir"
@@ -96,6 +99,7 @@ ApplicationWindow {
             id: drawer
             width: 0.8 * app.width
             height: app.height
+
             Material.elevation: 6
             background:Rectangle {
                 Rectangle {
@@ -123,7 +127,7 @@ ApplicationWindow {
                 }
                 ItemDelegate{
                     width: parent.width
-                    text: qsTr("Cesar Guerra")
+                    text:(g_currentUser)? g_currentUser.first_name+" "+g_currentUser.last_name :""
 
                 }
                 ItemDelegate {
@@ -147,16 +151,40 @@ ApplicationWindow {
 
 
     }
-//    Component.onCompleted: {
-//        if(settings.firstTime){
-//            console.log("primera vez")
-//            stackView.replace("qrc:/MsgScreen.qml" , {
-//                                  text:"Bienvenido a la aplicación",
-//                                  buttonText: "Empieza",
-//                                  buttonOnClicked: function() {stackView.push("qrc:/Login.qml")}
-//                              });
-//        }
-//    }
+    QAjax{
+        id:ajaxUser
+
+        authorization: app.g_auth_token
+        url: g_baseUrl+"current_user"
+        Component.onCompleted: ajaxUser.send();
+        onAuthorizationChanged: ajaxUser.send();
+        onSuccess:{
+            console.debug(data);
+            g_currentUser=ajaxUser.dataMap.user}
+    }
+
+
+    Component.onCompleted: {
+
+        if(settings.firstTime){
+            console.log("primera vez")
+            stackView.replace("qrc:/MsgScreen.qml" , {
+                                  text:"Bienvenido a la aplicación",
+                                  buttonText: "Empieza",
+                                  buttonOnClicked: function() {stackView.push("qrc:/Login.qml")}
+                              });
+            settings.firstTime=false;
+
+        }
+        else if(g_auth_token===""){
+            stackView.replace("qrc:/Login.qml" );
+        }
+    }
+    function logOut(){
+        g_auth_token="";
+        g_currentUser=null;
+        stackView.replace("qrc:/Login.qml" );
+    }
 
 
 }

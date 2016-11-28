@@ -9,6 +9,7 @@ Page {
         id: swipeView
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
+        Publications{url:(app.g_currentUser)?(app.g_baseUrl+"publications"+"?user_id="+app.g_currentUser.id):app.g_baseUrl+"publications"+"?user_id="+0}
         Publications{}
 
     }

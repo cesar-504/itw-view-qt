@@ -121,7 +121,7 @@ Item {
                 text: qsTr("Registrate")
                 Layout.preferredWidth: 300
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-
+                onClicked: app.g_stackView.push("qrc:/RegistrationForm.qml")
             }
 
         }
@@ -135,6 +135,8 @@ Item {
             console.debug(data);
             g_auth_token=ajaxLogin.dataMap.auth_token
             busyIndicator1.running= false
+            app.g_stackView.replace("qrc:/AppView.qml")
+
         }
         onError: {
             console.debug(code);

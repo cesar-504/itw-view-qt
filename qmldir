@@ -1,0 +1,2 @@
+module G
+singleton G 1.0 G.qml

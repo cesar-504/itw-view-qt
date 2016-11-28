@@ -11,6 +11,7 @@ Item {
         id:ajax
         url:root.url
         onSuccess: (!ajax.dataMap.publications)?msgScreen.visible=true:msgScreen.visible=false
+        authorization: app.g_auth_token
 
     }
 

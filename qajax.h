@@ -26,9 +26,9 @@ class QAjax : public QObject
     Q_PROPERTY(QVariantMap dataSent READ dataSent WRITE setDataSent NOTIFY requestChanged)
     Q_PROPERTY(QString errorString READ errorString NOTIFY errorChanged)
     Q_PROPERTY(int errorCode READ errorCode NOTIFY errorChanged)
+    Q_PROPERTY(QString authorization READ authorization WRITE setAuthorization NOTIFY authorizationChanged)
 public:
     explicit QAjax(QObject *parent = 0);
-
 
     //gets
     QString data();
@@ -38,15 +38,19 @@ public:
     QString url()const{return m_url;}
     QVariantMap dataSent()const{return m_dataSent;}
     QString errorString()const{return m_errorString;}
+    QString authorization()const{return m_authorization;}
     int errorCode()const{return m_errorCode;}
     //sets
     void setType (QString value);
     void setUrl(QString value);
     void setDataSent(QVariantMap value);
     void setDataMap(QVariantMap value);
+
     //fns
     Q_INVOKABLE void send();
 
+
+    void setAuthorization(const QString value);
 
 signals:
     void success(QString data);
@@ -55,6 +59,7 @@ signals:
     void dataChanged();
     void requestChanged();
     void errorChanged(int code,QString data);
+    void authorizationChanged();
 public slots:
     void finishSlot();
     void errorSlot(QNetworkReply::NetworkError code);
@@ -66,7 +71,7 @@ protected:
     QNetworkReply *m_reply;
     QString  m_data = QString();
     QVariantMap  m_dataMap= QVariantMap();
-
+    QString m_authorization="";
     bool m_dataMapChanged=true;
 
     QString m_type="get";
