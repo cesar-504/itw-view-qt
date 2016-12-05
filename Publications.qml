@@ -27,29 +27,16 @@ Item {
 
         spacing:10
         delegate:Component{
-            Pane{
-                width: parent.width
+            Pup{
+                width: listView1.width
                 height: 80
-
-                Material.elevation: 4
-                ColumnLayout {
-                    anchors.fill: parent
-                    id: row1
-                    spacing: 1
-
-                    Text {
-                        text: listView1.model[index].user.first_name +" "+listView1.model[index].user.last_name
-
-                        font.bold: true
-                    }
-                    Text {
-                        text:"Busca a: "+ listView1.model[index].objective.first_name +" "+listView1.model[index].objective.last_name
-
-                        font.bold: true
-                    }
-
-                }
+                nameUp: listView1.model[index].user.first_name +" "+listView1.model[index].user.last_name
+                nameDown: listView1.model[index].objective.first_name +" "+listView1.model[index].objective.last_name
+                points: Math.floor(Math.random() * (10 - 1)) + 1
+                date:Math.floor(Math.random() * (28 - 1)) + 1+"/"+Math.floor(Math.random() * (12 - 10)) + 1+"/16"
             }
+
+
 
 
 
@@ -60,7 +47,14 @@ Item {
         Component.onCompleted:{ ajax.send();}
 
     }
-
+    FloatBtn {
+        id: floatBtn1
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 30
+        anchors.right: parent.right
+        anchors.rightMargin: 30
+        onClicked: app.g_stackView.push('qrc:/PublicationForm.qml');
+    }
 
 
     MsgScreen{
@@ -79,6 +73,7 @@ Item {
         buttonText: "Recargar"
         buttonOnClicked: function() {ajax.send()}
     }
+
 
 
 }

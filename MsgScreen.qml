@@ -5,6 +5,8 @@ Page{
     property string text: ""
     property string buttonText: ""
     property var  buttonOnClicked: function(){}
+    property alias  button1: button11
+    signal btnClicked(real xPosition, real yPosition)
     Rectangle {
         id: rectangle1
         gradient: Gradient {
@@ -26,13 +28,13 @@ Page{
         anchors.fill: parent
 
         Button {
-            id: button1
+            id: button11
             x: 270
             y: 213
             width: 99
             height: 53
             text: root.buttonText
-            onClicked: root.buttonOnClicked()
+            onClicked: {root.buttonOnClicked();root.btnClicked(mouse.x, mouse.y);}
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
         }

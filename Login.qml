@@ -45,6 +45,7 @@ Item {
                 font.pointSize: 11
                 placeholderText: "mail@mail.com"
                 selectByMouse: true
+                Component.onCompleted:text= (app.g_set.user)?app.g_set.user.email:""
             }
 
 
@@ -70,6 +71,7 @@ Item {
                 font.pointSize: 11
                 echoMode: TextInput.Password
                 selectByMouse: true
+                Component.onCompleted: text=(app.g_set.user)? app.g_set.user.password:""
 
             }
 
@@ -89,7 +91,7 @@ Item {
             }
 
             Switch {
-                id: switch1
+                id: switchSaveData
                 width: 200
                 height: 40
                 text: qsTr("Recuerdame")
@@ -168,6 +170,10 @@ Item {
 
     function authenticate(user,pass){
         ajaxLogin.dataSent={"email":user,"password":pass};
+
+            app.g_set.user={"email":user,"password":pass};
+
+
         ajaxLogin.send();
         busyIndicator1.running=true;
     }

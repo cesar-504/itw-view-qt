@@ -15,6 +15,7 @@ ApplicationWindow {
     property alias g_auth_token:settings.g_auth_token
     property var g_currentUser
     property alias g_stackView: stackView
+    property alias g_set: settings
     visible: true
     width: 400
     height: 600
@@ -23,7 +24,7 @@ ApplicationWindow {
         id:settings
         property string g_baseUrl: "https://itwapp-cesargb504.c9users.io/"
         property string g_auth_token:""
-
+        property var user
         property bool firstTime: true
     }
 
@@ -126,6 +127,7 @@ ApplicationWindow {
 
                 }
                 ItemDelegate{
+                    id:drawerUser
                     width: parent.width
                     text:(g_currentUser)? g_currentUser.first_name+" "+g_currentUser.last_name :""
 
@@ -160,7 +162,10 @@ ApplicationWindow {
         onAuthorizationChanged: ajaxUser.send();
         onSuccess:{
             console.debug(data);
-            g_currentUser=ajaxUser.dataMap.user}
+            g_currentUser=ajaxUser.dataMap.user;
+            drawerUser.text=g_currentUser.first_name+" "+g_currentUser.last_name
+        }
+
     }
 
 

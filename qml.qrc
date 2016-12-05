@@ -10,5 +10,8 @@
         <file>MsgScreen.qml</file>
         <file>RegistrationForm.qml</file>
         <file>G.qml</file>
+        <file>Pup.qml</file>
+        <file>FloatBtn.qml</file>
+        <file>PublicationForm.qml</file>
     </qresource>
 </RCC>

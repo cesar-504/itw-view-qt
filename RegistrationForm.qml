@@ -171,13 +171,17 @@ Page{
         onSuccess: {
 
             busyIndicator1.running= false
-            stackView.replace("qrc:/MsgScreen.qml" , {
-                                  text:"Registro exitoso",
-                                  buttonText: "Aceptar",
-                                  buttonOnClicked: function() {stackView.replace("qrc:/Login.qml")}
-                              });
+//            stackView.replace("qrc:/MsgScreen.qml" , {
+//                                  text:"Registro exitoso",
+//                                  buttonText: "Aceptar",
+//                                  buttonOnClicked: function() {app.g_stackView.replace("qrc:/Login.qml")}
+
+//                              });
+            app.g_stackView.pop();
 
         }
+
+
         onError: {
             console.debug(code);
             console.debug(data);
@@ -190,7 +194,7 @@ Page{
         ajaxReg.dataSent={
             "first_name":txtName.text,
             "last_name":txtLastName.text,
-            "email":txtEmail,
+            "email":txtEmail.text,
             "email_confirmation":txtEmailConf.text,
             "password":txtPass.text,
             "password_confirmation":txtPassConf.text
