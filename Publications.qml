@@ -1,3 +1,5 @@
+//Ventana con lista de publicaciones ,con una url
+
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import "app.js" as Js

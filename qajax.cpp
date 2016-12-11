@@ -5,12 +5,13 @@ QAjax::QAjax(QObject *parent) : QObject(parent)
 }
 
 
-
+//Regresa el texto regresado por la peticion web
 QString QAjax::data()
 {
     return m_data;
 }
-
+//Regresa el texto regresado por la peticion web covertido en un objeto
+//Qvariant o un objeto JS en QML
 QVariantMap QAjax::dataMap()
 {
     if(m_dataMapChanged){
@@ -20,6 +21,7 @@ QVariantMap QAjax::dataMap()
     return m_dataMap;
 }
 
+//sets
 void QAjax::setType(QString value)
 {
     if(m_type==value)return;
@@ -48,13 +50,21 @@ void QAjax::setDataMap(QVariantMap value)
     emit dataChanged();
 }
 
+void QAjax::setAuthorization(const QString value)
+{
+    if(m_authorization==value)return;
+    m_authorization = value;
+    emit authorizationChanged();
+}
+
+//Envia una peticion asincrona con los datos guardados en el objeto
+//enlaza a receptores de teminacion y errores en la peticion
 void QAjax::send()
 {
-    qDebug()<<m_type<<","<<m_url;
     m_manager=new QNetworkAccessManager();
     QNetworkRequest req(m_url);
     req.setHeader(QNetworkRequest::ContentTypeHeader,QVariant(m_dataType));
-    //req.setHeader(QNetworkRequest::ContentTypeHeader,QVariant(m_dataType));
+
     if(!m_authorization.isEmpty())
         req.setRawHeader("Authorization",m_authorization.toUtf8());
     if(m_type.toLower()=="get") m_reply=m_manager->get(req);
@@ -68,7 +78,7 @@ void QAjax::send()
     connect(m_reply,static_cast<void(QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),this,&QAjax::errorSlot);
 }
 
-
+//Convierte de texto json a un objeto QVarianMAp
 QVariantMap QAjax::jsonToMap(QString data)
 {
     if(data.isEmpty()) return QVariantMap();
@@ -77,7 +87,7 @@ QVariantMap QAjax::jsonToMap(QString data)
     QVariantMap m =doc.object().toVariantMap();
     return m;
 }
-
+//Convierte de un objeto QVariantMap a un texto json
 QByteArray QAjax::MapToJson(QVariantMap data)
 {
     QJsonObject obj = QJsonObject::fromVariantMap(data);
@@ -85,15 +95,7 @@ QByteArray QAjax::MapToJson(QVariantMap data)
     return doc.toJson();
 }
 
-void QAjax::setAuthorization(const QString value)
-{
-    if(m_authorization==value)return;
-    m_authorization = value;
-    emit authorizationChanged();
-}
-
-
-
+// Acciones que realizar al teminar correctamente una peticion
 void QAjax::finishSlot()
 {
     if((int)m_reply->error()!=0) return;
@@ -107,7 +109,7 @@ void QAjax::finishSlot()
 
     m_reply->deleteLater();
 }
-
+// Acciones que realizar al teminar con errores una peticion
 void QAjax::errorSlot(QNetworkReply::NetworkError code)
 {
     qDebug()<<(int)code;
@@ -119,7 +121,7 @@ void QAjax::errorSlot(QNetworkReply::NetworkError code)
 
     m_reply->deleteLater();
 }
-
+// agrega a data los valores de un json diferente
 void QAjax::mergeData(QString data)
 {
     QVariantMap olm=dataMap();

@@ -67,20 +67,25 @@ public slots:
 protected:
     QVariantMap jsonToMap(QString data);
     QByteArray MapToJson(QVariantMap data);
+
+
     QNetworkAccessManager * m_manager=new QNetworkAccessManager();
     QNetworkReply *m_reply;
-    QString  m_data = QString();
-    QVariantMap  m_dataMap= QVariantMap();
-    QString m_authorization="";
-    bool m_dataMapChanged=true;
 
+    //guarda la informacion de la peticion en formato de texto
+    QString  m_data = QString();
+    //guarda la informacion de la peticion en formato de QVariantMap
+    QVariantMap  m_dataMap= QVariantMap();
+    // configuracion de peticion
+    QString m_authorization="";
     QString m_type="get";
     QString m_url="";
     QString m_dataType="application/json";
     QVariantMap m_dataSent=QVariantMap();
+
     QString m_errorString="";
     int m_errorCode=0;
-
+    bool m_dataMapChanged=true;
 
 
 };

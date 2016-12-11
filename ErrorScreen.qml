@@ -1,3 +1,5 @@
+//Pantalla de error simple que muestra un mensaje de error u un boton para recargar
+
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 

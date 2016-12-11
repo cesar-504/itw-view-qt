@@ -1,3 +1,5 @@
+//Formulario de creacion de publicaciones y sus objetivos
+
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
@@ -121,7 +123,7 @@ Page{
         onSuccess: {
 
             app.g_busyIndicator.running= false
-            app.g_stackView.pop;
+            app.g_stackView.pop();
 
         }
         onError: {

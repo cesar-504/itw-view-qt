@@ -1,3 +1,4 @@
+//Pantalla de mensaje simple con un boton programable
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 Page{
@@ -34,7 +35,7 @@ Page{
             width: 99
             height: 53
             text: root.buttonText
-            onClicked: {root.buttonOnClicked();root.btnClicked(mouse.x, mouse.y);}
+            onClicked: {root.buttonOnClicked();}
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
         }

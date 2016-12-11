@@ -1,5 +1,7 @@
 .pragma library
-
+/*
+ *implementacion de ajax en javascript
+ */
 function func() {
     return "Hola"
 }
