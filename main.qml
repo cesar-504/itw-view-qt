@@ -16,6 +16,7 @@ ApplicationWindow {
     property var g_currentUser
     property alias g_stackView: stackView
     property alias g_set: settings
+    property alias g_busyIndicator: busyIndicator
     visible: true
     width: 400
     height: 600
@@ -46,6 +47,18 @@ ApplicationWindow {
                         enabled: stackView.depth>1
 
                     }
+                    ToolButton{
+                        BusyIndicator {
+                            id: sep
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                            Material.primary:  "#333333"
+                            Material.accent: "#444444"
+                            height: topbar.height
+                            running: false
+                        }
+
+
+                    }
                     Label {
                         text: qsTr(stackView.currentItem.title||app.g_title)
                         font.bold: true
@@ -55,6 +68,18 @@ ApplicationWindow {
                         verticalAlignment: Qt.AlignVCenter
                         Layout.fillWidth: true
                     }
+                    ToolButton{
+                        BusyIndicator {
+                            id: busyIndicator
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                            Material.primary:  "#333333"
+                            Material.accent: "#444444"
+                            height: topbar.height
+                        }
+
+
+                    }
+
                     ToolButton {
                         text: qsTr("⋮")
                         font.bold: true

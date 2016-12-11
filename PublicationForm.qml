@@ -73,46 +73,85 @@ Page{
                 text: qsTr("")
                 Layout.fillWidth: true
             }
-            QAjax{
-                id:ajaxReg
-                type: 'post'
-                url: g_baseUrl+'users'
-                onSuccess: {
-
-                    busyIndicator1.running= false
-                    stackView.replace("qrc:/MsgScreen.qml" , {
-                                          text:"Registro exitoso",
-                                          buttonText: "Aceptar",
-                                          buttonOnClicked: function() {app.g_stackView.replace("qrc:/Login.qml")}
-                                      });
-
-                }
-                onError: {
-                    console.debug(code);
-                    console.debug(data);
-                    busyIndicator1.running= false;
-
+            RowLayout {
+                id: rowLayout1
+                width: 100
+                height: 100
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Layout.fillWidth: false
+                Button {
+                    id: btnCancel
+                    text: qsTr("Cancelar")
+                    onClicked: app.g_stackView.pop
                 }
 
+                Button {
+                    id: btnSend
+                    text: qsTr("Enviar")
+                    enabled: txtCont.text&&txtDesc.text&&txtLastName.text&&txtName.text&&txtPup
+                    onClicked: obj();
+                }
             }
-            function reg(){
-                ajaxReg.dataSent={
-                    "first_name":txtName.text,
-                    "last_name":txtLastName.text,
-                    "email":txtEmail.text,
-                    "email_confirmation":txtEmailConf.text,
-                    "password":txtPass.text,
-                    "password_confirmation":txtPassConf.text
-                };
-                busyIndicator1.running=true;
-                ajaxReg.send();
-
-            }
-
-
-
 
 
         }
+    }
+    QAjax{
+        id:ajaxObj
+        type: 'post'
+        url: g_baseUrl+'objectives'
+        onSuccess: {
+            console.debug('obj');
+                console.debug(ajaxObj.dataMap.objective.id)
+
+            pup(ajaxObj.dataMap.objective);
+        }
+        onError: {
+            console.debug(code);
+            console.debug(data);
+           app.g_busyIndicator.running= false;
+
+        }
+
+    }
+    QAjax{
+        id:ajaxPup
+        type: 'post'
+        url: g_baseUrl+'publications'
+        onSuccess: {
+
+            app.g_busyIndicator.running= false
+            app.g_stackView.pop;
+
+        }
+        onError: {
+            console.debug(code);
+            console.debug(data);
+            app.g_busyIndicator.running= false;
+
+        }
+
+    }
+    function obj(){
+        ajaxObj.dataSent={
+            "first_name":txtName.text,
+            "last_name":txtLastName.text,
+            "description":txtDesc.text,
+
+        };
+        app.g_busyIndicator.running=true;
+        ajaxObj.send();
+
+    }
+    function pup(objData){
+        ajaxPup.dataSent={
+            "title":txtPup.text,
+            "content":txtCont.text,
+            "user_id":app.g_currentUser.id,
+            "objective_id":objData.id,
+
+        };
+        ajaxPup.send();
+
     }
 }

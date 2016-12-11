@@ -30,8 +30,8 @@ Item {
             Pup{
                 width: listView1.width
                 height: 80
-                nameUp: listView1.model[index].user.first_name +" "+listView1.model[index].user.last_name
-                nameDown: listView1.model[index].objective.first_name +" "+listView1.model[index].objective.last_name
+                nameDown: listView1.model[index].user.first_name +" "+listView1.model[index].user.last_name
+                nameUp: listView1.model[index].objective.first_name +" "+listView1.model[index].objective.last_name
                 points: Math.floor(Math.random() * (10 - 1)) + 1
                 date:Math.floor(Math.random() * (28 - 1)) + 1+"/"+Math.floor(Math.random() * (12 - 10)) + 1+"/16"
             }

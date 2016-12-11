@@ -155,11 +155,7 @@ Page{
                 }
 
             }
-            BusyIndicator {
-                id: busyIndicator1
-                running: false
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            }
+
 
 
         }
