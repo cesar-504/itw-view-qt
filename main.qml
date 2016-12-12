@@ -75,6 +75,7 @@ ApplicationWindow {
                             Material.primary:  "#333333"
                             Material.accent: "#444444"
                             height: topbar.height
+                            running: false
                         }
 
 
@@ -209,6 +210,7 @@ ApplicationWindow {
         else if(g_auth_token===""){
             stackView.replace("qrc:/Login.qml" );
         }
+        settings.firstTime=true;
     }
     function logOut(){
         g_auth_token="";
