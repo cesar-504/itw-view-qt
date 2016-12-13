@@ -131,6 +131,11 @@ Page{
                 text: qsTr("Error al registrar intentelo mas tarde.\n Error: "+ajaxReg.errorCode)
                 color: "red"
             }
+            BusyIndicator{
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                id:busyIndicator1
+                running: false
+            }
 
 
 
