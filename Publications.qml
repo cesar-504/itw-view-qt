@@ -36,6 +36,7 @@ Item {
                 nameUp: listView1.model[index].objective.first_name +" "+listView1.model[index].objective.last_name
                 points: Math.floor(Math.random() * (10 - 1)) + 1
                 date:Math.floor(Math.random() * (28 - 1)) + 1+"/"+Math.floor(Math.random() * (12 - 10)) + 1+"/16"
+                url:ajax.url+'/'+listView1.model[index].id
             }
 
 

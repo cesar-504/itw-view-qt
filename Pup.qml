@@ -7,6 +7,7 @@ import QtQuick.Controls.Material 2.0
 Pane{
     width: 300
     height: 100
+    id:root
     property string nameUp
     property string nameDown
     property string date
@@ -118,6 +119,15 @@ Pane{
                 }
 
             }
+        }
+
+        MouseArea {
+            id: mouseArea1
+            anchors.fill: parent
+            onClicked: app.g_stackView.push("qrc:/PublicationDetails.qml" , {
+                                                url:root.url,
+
+                                            });
         }
 
 

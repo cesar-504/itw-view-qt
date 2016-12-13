@@ -13,5 +13,6 @@
         <file>Pup.qml</file>
         <file>FloatBtn.qml</file>
         <file>PublicationForm.qml</file>
+        <file>PublicationDetails.qml</file>
     </qresource>
 </RCC>
