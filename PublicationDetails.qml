@@ -8,6 +8,7 @@ Page{
     title: "Registro"
 
     property string url:"."
+    property int  pubId:0
     QAjax{
         id:ajaxPub
         type: 'get'
@@ -15,7 +16,8 @@ Page{
         onSuccess: {
             console.debug('obj');
             console.debug(ajaxPub.dataMap.publication.id)
-
+            pubId=ajaxPub.dataMap.publication.id;
+            ajaxGetResp.send();
 
         }
         onError: {
@@ -25,6 +27,47 @@ Page{
 
         }
         Component.onCompleted: ajaxPub.send();
+
+    }
+    QAjax{
+        id:ajaxGetResp
+        type: 'get'
+        url: g_baseUrl+'/answersp/?id='+pupId
+        onSuccess: {
+            console.debug('obj');
+            console.debug(ajaxGetResp.dataMap.publication.id)
+
+
+        }
+
+        onError: {
+            console.debug(code);
+            console.debug(data);
+           app.g_busyIndicator.running= false;
+
+        }
+
+
+    }
+    QAjax{
+
+        id:ajaxPostResp
+        type: 'post'
+        url: g_baseUrl+'/answers'
+        onSuccess: {
+            console.debug('obj');
+            console.debug(ajaxGetResp.dataMap.publication.id)
+
+
+        }
+
+        onError: {
+            console.debug(code);
+            console.debug(data);
+           app.g_busyIndicator.running= false;
+
+        }
+
 
     }
     Pup {
@@ -82,12 +125,41 @@ Page{
             Layout.fillWidth: true
             text: 'Enviar'
             onClicked: {
+                ajaxPostResp.dataSent={
+                    "location":txtUbi.text,
+                    "answer":txtResp.text,
+                    "publication_id":pubId
+                }
+                ajaxPostResp.send();
 
             }
         }
 
     }
     Flickable{
+
+        anchors.bottom: parent.bottom
+        anchors.top: columnPub.bottom
+        contentHeight: 900
+        flickableDirection: Flickable.VerticalFlick
+        ListView{
+            id:listView1
+
+            model: [1,2,3,4,5]
+
+            anchors.top: columnPub.bottom
+            delegate: Component{
+                ColumnLayout{
+                    Label{
+                        text: 'listView1.model[index].location'
+                    }
+                    Label{
+                        text:'listView1.model[index].answer'
+                    }
+                }
+            }
+    }
+
 
     }
 
