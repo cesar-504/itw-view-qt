@@ -15,7 +15,7 @@ Page{
         url: root.url
         onSuccess: {
             console.debug('obj');
-            console.debug(ajaxPub.dataMap.publication.id)
+            console.debug(ajaxPub.dataMap)
             pubId=ajaxPub.dataMap.publication.id;
             ajaxGetResp.send();
 
@@ -23,7 +23,7 @@ Page{
         onError: {
             console.debug(code);
             console.debug(data);
-           app.g_busyIndicator.running= false;
+            app.g_busyIndicator.running= false;
 
         }
         Component.onCompleted: ajaxPub.send();
@@ -32,7 +32,7 @@ Page{
     QAjax{
         id:ajaxGetResp
         type: 'get'
-        url: g_baseUrl+'/answersp/?id='+pupId
+        url: g_baseUrl+'answersp'
         onSuccess: {
             console.debug('obj');
             console.debug(ajaxGetResp.dataMap.publication.id)
@@ -43,20 +43,21 @@ Page{
         onError: {
             console.debug(code);
             console.debug(data);
-           app.g_busyIndicator.running= false;
+            app.g_busyIndicator.running= false;
 
         }
 
 
     }
+
     QAjax{
 
         id:ajaxPostResp
         type: 'post'
-        url: g_baseUrl+'/answers'
+        url: g_baseUrl+'answers'
         onSuccess: {
             console.debug('obj');
-            console.debug(ajaxGetResp.dataMap.publication.id)
+            ajaxGetResp.send();
 
 
         }
@@ -64,104 +65,147 @@ Page{
         onError: {
             console.debug(code);
             console.debug(data);
-           app.g_busyIndicator.running= false;
+            app.g_busyIndicator.running= false;
 
         }
 
 
     }
-    Pup {
-        id: pup1
-        width: parent.width
-        height: 80
-        nameDown: ajaxPub.dataMap.publication.user.first_name +" "+ajaxPub.dataMap.publication.user.last_name
-        nameUp: ajaxPub.dataMap.publication.objective.first_name +" "+ajaxPub.dataMap.publication.objective.last_name
-        points: Math.floor(Math.random() * (10 - 1)) + 1
-        date:Math.floor(Math.random() * (28 - 1)) + 1+"/"+Math.floor(Math.random() * (12 - 10)) + 1+"/16"
-    }
-    ColumnLayout{
-        id:columnPub
-        anchors.top: pup1.bottom
-        anchors.right: parent.right
-        anchors.left: parent.left
 
-        Label {
-            id: label1
-            text: ajaxPub.dataMap.publication.title
-
-            font.bold: true
-            font.pointSize: 13
-            Layout.fillWidth: true
-        }
-        Label {
-            id: label2
-            text: ajaxPub.dataMap.publication.content
-            Layout.fillWidth: true
-        }
-        Label {
-            id: label3
-            text: 'Publica tu respuesta:'
-            Layout.fillWidth: true
-        }
-        Label{
-            text: 'ubicacion'
-        }
-
-        TextField{
-            id:txtUbi
-             Layout.fillWidth: true
-
-        }
-        Label{
-            text: 'respuesta'
-        }
-
-        TextField{
-            id:txtResp
-             Layout.fillWidth: true
-
-        }
-        Button{
-            Layout.fillWidth: true
-            text: 'Enviar'
-            onClicked: {
-                ajaxPostResp.dataSent={
-                    "location":txtUbi.text,
-                    "answer":txtResp.text,
-                    "publication_id":pubId
-                }
-                ajaxPostResp.send();
-
-            }
-        }
-
-    }
     Flickable{
-
-        anchors.bottom: parent.bottom
-        anchors.top: columnPub.bottom
-        contentHeight: 900
+        anchors.fill: parent
+        contentHeight: 800
         flickableDirection: Flickable.VerticalFlick
-        ListView{
-            id:listView1
+        ScrollBar.vertical:  ScrollBar{
 
-            model: [1,2,3,4,5]
+        }
+        ColumnLayout{
+            anchors.fill: parent
 
-            anchors.top: columnPub.bottom
-            delegate: Component{
-                ColumnLayout{
-                    Label{
-                        text: 'listView1.model[index].location'
-                    }
-                    Label{
-                        text:'listView1.model[index].answer'
+            Pup {
+                id: pup1
+                anchors.right: parent.right
+                anchors.left: parent.left
+
+                Layout.preferredHeight: 80
+                nameDown: ajaxPub.dataMap.publication.user.first_name +" "+ajaxPub.dataMap.publication.user.last_name
+                nameUp: ajaxPub.dataMap.publication.objective.first_name +" "+ajaxPub.dataMap.publication.objective.last_name
+                points: Math.floor(Math.random() * (10 - 1)) + 1
+                date:Math.floor(Math.random() * (28 - 1)) + 1+"/"+Math.floor(Math.random() * (12 - 10)) + 1+"/16"
+            }
+            ColumnLayout{
+                id:columnPub
+
+
+                anchors.right: parent.right
+                anchors.left: parent.left
+
+                Label {
+                    id: label1
+                    text: ajaxPub.dataMap.publication.title
+
+                    font.bold: true
+                    font.pointSize: 13
+                    Layout.fillWidth: true
+                }
+                Label {
+                    id: label2
+                    text: ajaxPub.dataMap.publication.content
+                    Layout.fillWidth: true
+                }
+                Label {
+                    id: label3
+                    text: 'Publica tu respuesta:'
+                    Layout.fillWidth: true
+                }
+                Label{
+                    text: 'ubicacion'
+                }
+
+                TextField{
+                    id:txtUbi
+                    Layout.fillWidth: true
+
+                }
+                Label{
+                    text: 'respuesta'
+                }
+
+                TextField{
+                    id:txtResp
+                    Layout.fillWidth: true
+
+                }
+                Button{
+                    Layout.fillWidth: true
+                    text: 'Enviar'
+                    onClicked: {
+                        ajaxPostResp.dataSent={
+                            "location":txtUbi.text,
+                            "answer":txtResp.text,
+                            "publication_id":pubId,
+                            "user_id":app.g_currentUser.id
+                        }
+                        ajaxPostResp.send();
+
                     }
                 }
+
             }
-    }
+            property var listRespModel: []
+            ListView{
+                Layout.preferredHeight: 300
+                id:listResp
+                spacing: 3
+                model: ajaxGetResp.dataMap.answers
+                delegate:Component{
+                    Rectangle {
+                        id: rectangle1
+                        width: columnPub.width
+
+                        height: 60
+                        color: "#d0eac6"
+                        radius: 12
+                        ColumnLayout{
+                            Text {
+
+
+                               text: listResp.model[index].user.first_name+" "+listResp.model[index].user.last_name
+                               font.bold: true
+                               Component.onCompleted: console.debug(text)
+                            }
+                            Text {
+
+
+                               text: listResp.model[index].location
+                               font.bold: true
+                               Component.onCompleted: console.debug(text)
+                            }
+                            Text {
+
+
+                               text: listResp.model[index].answer
+                               font.bold: true
+                               Component.onCompleted: console.debug(text)
+                            }
+                        }
+
+                    }
+
+                }
+
+
+            }
+
+        }
+
+
 
 
     }
+
+
+
 
 
 

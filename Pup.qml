@@ -125,7 +125,7 @@ Pane{
             id: mouseArea1
             anchors.fill: parent
             onClicked: app.g_stackView.push("qrc:/PublicationDetails.qml" , {
-                                                url:root.url,
+                                                url:root.url
 
                                             });
         }
